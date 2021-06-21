@@ -1,0 +1,67 @@
+<%@ page contentType="text/html; charset=utf-8" pageEncoding="utf-8"%>
+
+  				<div style="display:inline-block;width:50%;">
+  				<c:if test="<%= rowsPerPage<rowNumber %>">
+					<nav aria-label="...">
+						<ul class="pagination">
+							<li class="page-item">
+								<a class="page-link" href="<%=request.getRequestURI()%>?whichPage=1">第一頁</a>
+							</li>
+						<c:if test="<%= whichPage==1 %>">
+							<li class="page-item disabled"><a class="page-link" href="#"
+								tabindex="-1" aria-disabled="true">Previous</a></li>
+						</c:if>
+						<c:if test="<%= whichPage>1 %>">
+							<li class="page-item">
+								<a class="page-link" href="<%=request.getRequestURI()%>?whichPage=<%=whichPage-1%>">Previous</a>
+							</li>
+						</c:if>
+						<c:if test="<%=whichPage-1>0 %>">	
+							<li class="page-item">
+								<a class="page-link" href="<%=request.getRequestURI()%>?whichPage=<%=whichPage-1%>"><%=whichPage-1 %></a>
+							</li>
+						</c:if>
+							<li class="page-item active" aria-current="page"><a
+								class="page-link" href="<%=request.getRequestURI()%>?whichPage=<%=whichPage%>"><%=whichPage%></a></li>
+						<c:if test="<%=whichPage!=pageNumber %>">	
+							<li class="page-item">
+								<a class="page-link" href="<%=request.getRequestURI()%>?whichPage=<%=whichPage+1%>"><%= whichPage+1 %></a>
+							</li>
+						</c:if>	
+						<c:if test="<%= whichPage!=pageNumber %>">	
+							<li class="page-item"><a class="page-link" href="<%=request.getRequestURI()%>?whichPage=<%=whichPage+1%>">Next</a>
+							</li>
+						</c:if>	
+						<c:if test="<%= whichPage==pageNumber %>">	
+							<li class="page-item disabled"><a class="page-link" href="#"
+								tabindex="-1" aria-disabled="true">Next</a>
+							</li>
+						</c:if>	
+							<li class="page-item">
+								<a class="page-link" href="<%=request.getRequestURI()%>?whichPage=<%=pageNumber%>">最後一頁</a>
+							</li>
+						</ul>
+					</nav>
+				</c:if>
+ 				</div>
+	<div style="display:inline-block;width:40%;">
+  <%if (pageNumber>1) {%>
+    <FORM METHOD="post" ACTION="<%=request.getContextPath()%>/itinery/attraction.do">  
+    	<div class="form-row w-75"> 
+    		<div class="col-auto">
+       			<select size="1" name="whichPage" class="custom-select">
+         			<%for (int i=1; i<=pageNumber; i++){%>
+            			<option value="<%=i%>">跳至第<%=i%>頁
+         			<%}%> 
+       			</select>
+       		</div>
+       		<div class="col-auto">
+       			<input type="submit" value="確定" class="btn btn-primary"> 
+       		</div>
+       		<input type="hidden" name="action" value="searchForAttra">
+       		<input type="hidden" name="attraName" value="${param.attraName==null?param.paramAttraName:param.attraName }">
+			<input type="hidden" name="sort" value="${param.sort==null?param.paramSort:param.sort }">
+       </div> 
+    </FORM>
+  <%}%>
+  	</div>

@@ -1,0 +1,310 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns="http://xmlns.jcp.org/xml/ns/javaee"
+	xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_4_0.xsd"
+	id="WebApp_ID" version="4.0">
+	<display-name>CEA102G3</display-name>
+	<welcome-file-list>
+		<welcome-file>index.html</welcome-file>
+		<welcome-file>index.htm</welcome-file>
+		<welcome-file>index.jsp</welcome-file>
+		<welcome-file>default.html</welcome-file>
+		<welcome-file>default.htm</welcome-file>
+		<welcome-file>default.jsp</welcome-file>
+	</welcome-file-list>
+	<resource-ref>
+		<description>DB Connection</description>
+		<res-ref-name>jdbc/guidemeDB</res-ref-name>
+		<res-type>javax.sql.DataSource</res-type>
+		<res-auth>Container</res-auth>
+	</resource-ref>
+
+	<!-- 彥銘 -->
+	<servlet>
+		<servlet-name>MemberServlet</servlet-name>
+		<servlet-class>com.member.controller.MemberServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>MemberServlet</servlet-name>
+		<url-pattern>/member/member.do</url-pattern>
+	</servlet-mapping>
+	<servlet>
+		<servlet-name>MemberLoginOutServlet</servlet-name>
+		<servlet-class>com.member.controller.LoginOutServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>MemberLoginOutServlet</servlet-name>
+		<url-pattern>/member/loginHandler.do</url-pattern>
+	</servlet-mapping>
+
+	<servlet>
+		<servlet-name>FriendListServlet</servlet-name>
+		<servlet-class>com.friendList.controller.FriendListServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>FriendListServlet</servlet-name>
+		<url-pattern>/friendList/friendListServlet.do</url-pattern>
+	</servlet-mapping>
+
+	<servlet>
+		<servlet-name>FriendInvitServlet</servlet-name>
+		<servlet-class>com.friendInvit.controller.FriendInvitServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>FriendInvitServlet</servlet-name>
+		<url-pattern>/friendInvit/friendInvitServlet.do</url-pattern>
+	</servlet-mapping>
+
+	<servlet>
+		<servlet-name>NotifyServlet</servlet-name>
+		<servlet-class>com.notify.controller.NotifyServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>NotifyServlet</servlet-name>
+		<url-pattern>/notify/notifyServlet.do</url-pattern>
+	</servlet-mapping>
+
+	<servlet>
+		<servlet-name>WebSocketServlet</servlet-name>
+		<servlet-class>com.message.webSocket.WebSocketServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>WebSocketServlet</servlet-name>
+		<url-pattern>/message/webSocket.do</url-pattern>
+	</servlet-mapping>
+
+	<context-param>
+		<param-name>noImg</param-name>
+		<param-value>/resources/img/undraw_profile.svg</param-value>
+	</context-param>
+
+	<filter>
+		<filter-name>loginFilter</filter-name>
+		<filter-class>filters.LoginFilter</filter-class>
+	</filter>
+	<filter-mapping>
+		<filter-name>loginFilter</filter-name>
+		<url-pattern>/front-end/friendList/*</url-pattern>
+		<url-pattern>/front-end/member/EditProfile.jsp</url-pattern>
+		<!-- 中佑 -->
+		<url-pattern>/front-end/itinery/*</url-pattern>
+
+		<!-- 蕭捷 -->
+		<url-pattern>/front-end/exper_order/listExperOrder.jsp</url-pattern>
+		<url-pattern>/front-end/exper_appli/listOneExperAppli.jsp</url-pattern>
+		<url-pattern>/back-end/exper_appli/sellListOneExperAppli.jsp</url-pattern>
+		<url-pattern>/back-end/experience/addExperience.jsp</url-pattern>
+		<url-pattern>/back-end/experience/listOneExperience.jsp</url-pattern>
+		<url-pattern>/back-end/exper_back_index.jsp</url-pattern>
+		<url-pattern>/front-end/exper_index/exper_search_index.jsp</url-pattern>
+		<dispatcher>REQUEST</dispatcher>
+		<dispatcher>FORWARD</dispatcher>
+		<dispatcher>INCLUDE</dispatcher>
+		<dispatcher>ERROR</dispatcher>
+		<dispatcher>ASYNC</dispatcher>
+	</filter-mapping>
+
+	<!-- 中佑 -->
+	<servlet>
+		<servlet-name>AttractionServlet</servlet-name>
+		<servlet-class>com.attraction.controller.AttractionServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>AttractionServlet</servlet-name>
+		<url-pattern>/itinery/attraction.do</url-pattern>
+	</servlet-mapping>
+
+	<servlet>
+		<servlet-name>ItineServlet</servlet-name>
+		<servlet-class>com.itine.controller.ItineServlet</servlet-class>
+		<load-on-startup>10</load-on-startup>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>ItineServlet</servlet-name>
+		<url-pattern>/itinery/itine.do</url-pattern>
+	</servlet-mapping>
+
+	<servlet>
+		<servlet-name>ItineMemberServlet</servlet-name>
+		<servlet-class>com.itineMember.controller.ItineMemberServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>ItineMemberServlet</servlet-name>
+		<url-pattern>/itinery/itineMember.do</url-pattern>
+	</servlet-mapping>
+
+	<servlet>
+		<servlet-name>ItineItemServlet</servlet-name>
+		<servlet-class>com.itineItem.controller.ItineItemServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>ItineItemServlet</servlet-name>
+		<url-pattern>/itinery/itineItem.do</url-pattern>
+	</servlet-mapping>
+
+	<!-- 蕭捷 -->
+	<servlet>
+		<servlet-name>ExperienceServlet</servlet-name>
+		<servlet-class>com.experience.controller.ExperienceServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>ExperienceServlet</servlet-name>
+		<url-pattern>/Experience/Experience.do</url-pattern>
+	</servlet-mapping>
+
+	<servlet>
+		<servlet-name>ExperTypeServlet</servlet-name>
+		<servlet-class>com.exper_type.controller.ExperTypeServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>ExperTypeServlet</servlet-name>
+		<url-pattern>/ExperType/ExperType.do</url-pattern>
+	</servlet-mapping>
+
+	<servlet>
+		<servlet-name>ExperOrderServlet</servlet-name>
+		<servlet-class>com.exper_order.controller.ExperOrderServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>ExperOrderServlet</servlet-name>
+		<url-pattern>/ExperOrder/ExperOrder.do</url-pattern>
+	</servlet-mapping>
+
+	<servlet>
+		<servlet-name>FavoriteExperServlet</servlet-name>
+		<servlet-class>com.favorite_exper.controller.FavoriteExperServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>FavoriteExperServlet</servlet-name>
+		<url-pattern>/FavoriteExper/FavoriteExper.do</url-pattern>
+	</servlet-mapping>
+
+	<servlet>
+		<servlet-name>ExperPhotoServlet</servlet-name>
+		<servlet-class>com.exper_photo.controller.ExperPhotoServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>ExperPhotoServlet</servlet-name>
+		<url-pattern>/ExperPhoto/ExperPhoto.do</url-pattern>
+	</servlet-mapping>
+
+	<servlet>
+		<servlet-name>ExperReportServlet</servlet-name>
+		<servlet-class>com.exper_report.controller.ExperReportServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>ExperReportServlet</servlet-name>
+		<url-pattern>/ExperReport/ExperReport.do</url-pattern>
+	</servlet-mapping>
+
+	<servlet>
+		<servlet-name>ExperApplicationServlet</servlet-name>
+		<servlet-class>com.exper_application.controller.ExperApplicationServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>ExperApplicationServlet</servlet-name>
+		<url-pattern>/ExperApplication/ExperApplication.do</url-pattern>
+	</servlet-mapping>
+
+	<!-- 宗軒 -->
+	<servlet>
+		<servlet-name>OrderServlet</servlet-name>
+		<servlet-class>com.order.controller.OrderServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>OrderServlet</servlet-name>
+		<url-pattern>/order/order.do</url-pattern>
+	</servlet-mapping>
+
+	<servlet>
+		<servlet-name>ProductServlet</servlet-name>
+		<servlet-class>com.product.controller.ProductServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>ProductServlet</servlet-name>
+		<url-pattern>/product/product.do</url-pattern>
+	</servlet-mapping>
+
+	<servlet>
+		<servlet-name>CrollerImage</servlet-name>
+		<servlet-class>com.product.controller.ControllerImage</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>CrollerImage</servlet-name>
+		<url-pattern>/product/controllerImage.do</url-pattern>
+	</servlet-mapping>
+
+	<servlet>
+		<servlet-name>Product_RateServlet</servlet-name>
+		<servlet-class>com.product_rate.controller.Product_RateServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>Product_RateServlet</servlet-name>
+		<url-pattern>/productRate/productRate.do</url-pattern>
+	</servlet-mapping>
+
+	<servlet>
+		<servlet-name>Favorite_ProductServlet</servlet-name>
+		<servlet-class>com.favorite_product.controller.FavoriteProductServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>Favorite_ProductServlet</servlet-name>
+		<url-pattern>/favoriteProduct/favoriteProduct.do</url-pattern>
+	</servlet-mapping>
+
+	<servlet>
+		<servlet-name>OrderItemServlet</servlet-name>
+		<servlet-class>com.order_item.controller.OrderItemServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>OrderItemServlet</servlet-name>
+		<url-pattern>/orderItem/orderItem.do</url-pattern>
+	</servlet-mapping>
+
+	<servlet>
+		<servlet-name>ShoppingServlet</servlet-name>
+		<servlet-class>com.shopping.controller.ShoppingServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>ShoppingServlet</servlet-name>
+		<url-pattern>/shoppingCart/shoppingCart.do</url-pattern>
+	</servlet-mapping>
+
+	<!-- 英明 -->
+	<servlet>
+		<servlet-name>EmployeeServlet</servlet-name>
+		<servlet-class>com.emp.controller.EmployeeServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>EmployeeServlet</servlet-name>
+		<url-pattern>/employee/employee.do</url-pattern>
+	</servlet-mapping>
+
+	<servlet>
+		<servlet-name>LoginOutServlet</servlet-name>
+		<servlet-class>com.emp.controller.LoginOutServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>LoginOutServlet</servlet-name>
+		<url-pattern>/employee/loginHandler.do</url-pattern>
+	</servlet-mapping>
+
+	<servlet>
+		<servlet-name>FaqServlet</servlet-name>
+		<servlet-class>com.faq.controller.FaqServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>FaqServlet</servlet-name>
+		<url-pattern>/faq/faq.do</url-pattern>
+	</servlet-mapping>
+
+	<servlet>
+		<servlet-name>NewsServlet</servlet-name>
+		<servlet-class>com.news.controller.NewsServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>NewsServlet</servlet-name>
+		<url-pattern>/news/news.do</url-pattern>
+	</servlet-mapping>
+
+</web-app>

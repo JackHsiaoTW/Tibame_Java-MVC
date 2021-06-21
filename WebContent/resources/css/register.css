@@ -1,0 +1,10 @@
+#preview00 {
+	width: 100px;
+	height: 100px;
+}
+
+.show {
+	display: block;
+	width: 100px;
+	height: 100px;
+}

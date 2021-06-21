@@ -1,0 +1,164 @@
+<%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<!-- Topbar -->
+	<div
+		class="navbar navbar-expand navbar-light bg-white topbar fixed-top static-top shadow d-flex"
+		style="height: 70px">
+		<!-- Nav Item - logo -->
+		<div class=" o-hidden">
+			<img src="<%=request.getContextPath()%>/resources/img/logo.PNG" style="height: 70px">
+		</div>
+		<!-- Topbar Navbar -->
+		<ul class="navbar-nav ml-auto">
+
+			<div class="top-button">
+				<a href="#"> <i class="fas fa-store"></i> <span class="text">商城</span></a>
+			</div>
+			<div class="top-button">
+				<a href="#"> <i class="fas fa-map-pin"></i> <span class="text">體驗</span></a>
+			</div>
+			<div class="top-button">
+				<a href="#"> <i class="fas fa-align-center"></i> <span class="text">文章</span></a>
+			</div>
+			<div class="top-button">
+				<a href="#"> <i class="fas fa-edit"></i> <span class="text">行程</span></a>
+			</div>
+			<!-- Nav Item - QA -->
+			<li class="nav-item dropdown no-arrow mx-1">
+				<a class="nav-link dropdown-toggle" href="#" id="alertsDropdown"
+					role="button" data-toggle="dropdown" aria-haspopup="true"
+					aria-expanded="false"> <i class="fas fa-question fa-lg"></i>
+				</a>
+			</li>
+			<!-- Nav Item - Cart -->
+			<li class="nav-item dropdown no-arrow mx-1">
+				<a class="nav-link dropdown-toggle" href="#" id="alertsDropdown"
+					role="button" data-toggle="dropdown" aria-haspopup="true"
+					aria-expanded="false"> 
+					<i class="fas fa-shopping-cart fa-lg"></i>
+					<!-- Counter - Alerts --> 
+					<span class="badge badge-danger badge-counter">3+</span>
+				</a>
+			</li>
+
+			<!-- Nav Item - Alerts -->
+			<li class="nav-item dropdown no-arrow mx-1">
+				<a class="nav-link dropdown-toggle" href="#" id="alertsDropdown"
+					role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> 
+					<i class="fas fa-bell fa-fw fa-lg"></i> 
+					<!-- Counter - Alerts -->
+					<span class="badge badge-danger badge-counter">3+</span>
+				</a> 
+				<!-- Dropdown - Alerts -->
+				<div class="dropdown-list dropdown-menu dropdown-menu-right shadow animated--grow-in"
+					aria-labelledby="alertsDropdown">
+					<h6 class="dropdown-header">Alerts Center</h6>
+					
+					<!-- 動態產生通知欄位,只顯示5個 -->
+					<c:forEach var="notifyPer" items="${notifySvc.getOneNotifyByPerson(memberVO.memberNo)}" end="4" step="1">
+						<a class="dropdown-item d-flex align-items-center" href="<%=request.getContextPath()%>/notify/notifyServlet.do?notifyNo=${notifyPer.notifyNo}&action=listOneNotify">
+							<div class="mr-3">
+								<div class="icon-circle bg-primary">
+									<i class="fas fa-file-alt text-white"></i>
+								</div>
+							</div>
+							<div>
+								<div class="small text-gray-500"><fmt:formatDate value="${notifyPer.notifyTime}" pattern="yyyy-MM-dd HH:mm:ss"/></div>
+								<span class="font-weight-bold">${notifyPer.notifyContent}</span>
+							</div>
+						</a> 
+						
+					</c:forEach>
+					
+					<a class="dropdown-item text-center small text-gray-500" href="<%=request.getContextPath()%>/front-end/notify/NotifyAll.jsp">Show All Alerts</a>
+				</div>
+			</li>
+
+			<div class="topbar-divider d-none d-sm-block"></div>
+
+			<!-- Nav Item - User Information -->
+			<li class="nav-item dropdown no-arrow">
+				<a class="nav-link dropdown-toggle" href="#" id="userDropdown"
+					role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> 
+					<span class="mr-2 d-none d-lg-inline text-gray-600 medium">${memberVO.name}</span> 
+					<img class="img-profile rounded-circle w-auto h-100" src="<%= request.getContextPath()+"/GetPicture?id="+memberVO.getMemberNo()%>">
+				</a> 
+				
+				<!-- Dropdown - User Information -->
+				<div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">
+					<c:choose>
+						<c:when test="${empty memberVO.account}">
+							<a class="dropdown-item" href="<%=request.getContextPath()%>/front-end/Login.jsp"> 
+								<i class="fas fa-sign-in-alt fa-md fa-fw mr-2 text-gray-400"></i> 登入
+							</a> 
+						</c:when>
+						<c:otherwise>
+							<a class="dropdown-item" href="#"> 
+								<i class="fas fa-gifts fa-md fa-fw mr-2 text-gray-400"></i> 商品
+							</a> 
+							<a class="dropdown-item" href="#"> 
+								<i class="fas fa-running fa-md fa-fw mr-2 text-gray-400"></i> 體驗
+							</a> 
+							<a class="dropdown-item" href="<%=request.getContextPath()%>/front-end/friendList/allFriendInfo.jsp"> 
+								<i class="fas fa-user fa-md fa-fw mr-2 text-gray-400"></i> 好友
+							</a> 
+							<a class="dropdown-item" href="#"> 
+								<i class="fas fa-envelope fa-md fa-fw mr-2 text-gray-400"></i> 訊息
+							</a> 
+							<a class="dropdown-item" href="<%=request.getContextPath()%>/member/member.do?action=getOne_For_Update"> 
+								<i class="fas fa-cog fa-md fa-fw mr-2 text-gray-400"></i> 帳號
+							</a>
+							<div class="dropdown-divider"></div>
+							<a class="dropdown-item" href="#" data-toggle="modal" data-target="#logoutModal"> 
+								<i class="fas fa-sign-out-alt fa-md fa-fw mr-2 text-gray-400"></i> 登出
+							</a>
+						</c:otherwise>
+					</c:choose>
+				</div>
+			</li>
+		</ul>
+	</div>
+	<!-- End of Topbar -->
+
+	<!-- Logout Modal-->
+	<div class="modal fade" id="logoutModal" tabindex="-1" role="dialog"
+		aria-labelledby="exampleModalLabel" aria-hidden="true">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title" id="exampleModalLabel">確定離開?</h5>
+					<button class="close" type="button" data-dismiss="modal" aria-label="Close">
+						<span aria-hidden="true">×</span>
+					</button>
+				</div>
+				<div class="modal-body">選擇確定如果你真的要登出您的帳戶</div>
+				<div class="modal-footer">
+					<button class="btn btn-secondary" type="button" data-dismiss="modal">取消</button>
+					<a class="btn btn-primary" href="<%=request.getContextPath()%>/member/loginHandler.do?action=logout">確定</a>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<!-- listOneNotify Modal -->
+	<c:if test="${openListOneNotifyModal!=null}">
+		<div class="modal fade" id="listOneModal" tabindex="-1" role="dialog"
+			aria-labelledby="listOneModal" aria-hidden="true">
+			<div class="modal-dialog" role="document">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h5 class="modal-title" id="exampleModalLabel">listOneNotify</h5>
+						<button class="close" type="button" data-dismiss="modal" aria-label="Close">
+							<span aria-hidden="true">×</span>
+						</button>
+					</div>
+				<div class="modal-body">
+					<jsp:include page="/front-end/notify/listOneNotify.jsp" />
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<script>
+		$("#listOneModal").modal({show: true});
+	</script>
+ </c:if>

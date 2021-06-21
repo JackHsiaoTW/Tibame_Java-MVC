@@ -1,0 +1,12 @@
+body {
+  background-image: url('../../assets/img/ski2.jpg');
+  height: 100%;
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+}
+
+.container, .container-lg, .container-md, .container-sm, .container-xl {
+}
+

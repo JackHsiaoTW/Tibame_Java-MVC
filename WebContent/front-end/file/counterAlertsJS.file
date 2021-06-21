@@ -1,0 +1,86 @@
+<%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<script src="<%=request.getContextPath()%>/resources/js/moment-with-locales.js"></script>
+<script>
+	// 如果CounterAlerts為0的話不顯示數字
+	function isZeroCounterAlerts(){
+		let counterAlerts = document.getElementById("counterAlerts");
+		if(counterAlerts.textContent === '0'){
+			counterAlerts.classList.add('disableCounterAlerts');
+		}
+	}
+	
+	// 如果CounterAlerts不為0的話顯示數字
+	function isNotZeroCounterAlerts(){
+		let counterAlerts = document.getElementById("counterAlerts");
+		counterAlerts.classList.remove('disableCounterAlerts');
+	}
+	
+	// alertsDropdown 按一下後數字消失
+	function clearCounterAlerts() {
+		let counterAlerts = document.getElementById("counterAlerts");
+		counterAlerts.textContent = '0';
+		isZeroCounterAlerts();
+	}
+    
+    // clearNotify
+    function clearNotify(){
+    	let alertLength = $("div.dropdownAlertlist").find('a').length;
+    	$("div.dropdownAlertlist").find('a').each(function(index){
+            $(this).remove();
+        });
+    }
+    
+    // ajax讀取Notify table
+    function listOneMemberNotify() {
+        $.ajax({
+            url: "<%=request.getContextPath()%>/notify/notifyServlet.do",
+            type: "POST",
+            data: {
+                action: "listOneMemberNotify",
+                notifyPerson: '${memberVO.memberNo}'
+            },
+            dataType: "json",
+            success: function (data) {
+                clearNotify();
+                $(data).each(function (i, item) {
+                	if(i <5){
+                		$('div.dropdownAlertlist').append(`
+	                    	<a class= "dropdown-item d-flex align-items-center" href = "#" >
+	                    		<div class="mr-3">
+	                    			<div class="icon-circle bg-primary">
+	                    				<i class="fas fa-file-alt text-white"></i>
+	                    			</div>
+	                    		</div>
+	                    		<div>
+	                    			<div class="small text-gray-500">`+moment(item.notifyTime).format("YYYY-MM-DD, H:mm:ss")+`</div>
+	                    			<span class="font-weight-bold">${'${item.notifyContent}'}</span>
+	                    		</div>
+	                    	</a >
+	                    `);
+                	}
+                    
+				});
+				
+				$('div.dropdownAlertlist').append('<a class="dropdown-item text-center small text-gray-500" href="<%=request.getContextPath()%>/front-end/notify/NotifyAll.jsp">Show All Alerts</a>');
+				
+			},
+			error: function () { alert("AJAX-發生錯誤囉!") }
+		});
+	}
+	
+        
+    let countAlertsDropdown = document.getElementsByClassName("nav-link dropdown-toggle");
+    for (let i = 0; i < countAlertsDropdown.length; i++) {
+        countAlertsDropdown[i].addEventListener('click', function (e) {
+            if (this.children[1] != undefined && this.children[1].id === 'counterAlerts') {  // click CounterAlerts 後清除數字
+                let counterAlerts = document.getElementById("counterAlerts");
+                counterAlerts.textContent = '0';
+                isZeroCounterAlerts();
+                
+                // click 後利用ajax讀取Notify table
+                listOneMemberNotify();
+            }
+        });
+    }
+	
+</script>

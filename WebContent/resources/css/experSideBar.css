@@ -1,0 +1,20 @@
+<style>
+body{
+   color:black;
+}
+div.side-bar{
+	background-color:#009ab9;
+	position:fixed;
+	height:100vh;
+	weight:100%;
+	
+}
+div.side-bar a{
+	color:white;
+}
+.container-fluid{
+	padding-left:0;
+}
+
+
+</style>
